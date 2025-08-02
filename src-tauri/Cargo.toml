@@ -1,0 +1,53 @@
+[package]
+name = "mousebridge"
+version = "0.1.0"
+description = "Share a single mouse seamlessly between your Mac, Linux and PC"
+authors = ["makalin"]
+license = "MIT"
+repository = "https://github.com/makalin/MouseBridge"
+edition = "2021"
+
+[lib]
+name = "mousebridge_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+tauri = { version = "1.5", features = [
+  "app-all",
+  "fs-all",
+  "os-all",
+  "path-all",
+  "shell-open",
+  "window-all"
+] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+
+enigo = "0.1"
+device_query = "1.1"
+clap = { version = "4.0", features = ["derive"] }
+anyhow = "1.0"
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.10"
+dirs = "5.0"
+uuid = { version = "1.0", features = ["v4"] }
+base64 = "0.21"
+hex = "0.4"
+rand = "0.8"
+chrono = { version = "0.4", features = ["serde"] }
+hostname = "0.3"
+local_ipaddress = "0.1"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "z" 
